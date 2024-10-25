@@ -2,7 +2,7 @@
 import { ProductDetailsLocators } from '@features/pages/product-details/locators/ProductDetailsLocators';
 
 // Types
-import { IProductDetails } from '@features/pages/shared/types/product/IProductDetails';
+import { IProduct } from '@features/pages/shared/types/product/IProduct';
 
 export class ProductDetails {
   private readonly locators = ProductDetailsLocators;
@@ -42,7 +42,7 @@ export class ProductDetails {
     return cy.getValue(this.locators.quantity).then(quantity => parseInt(quantity));
   }
 
-  public getProductDetails(): Cypress.Chainable<IProductDetails> {
+  public getProductDetails(): Cypress.Chainable<IProduct> {
     return this.getProductName().then(productName => {
       return this.getProductPrice().then(productPrice => {
         return this.getProductDescription().then(productDescription => {
