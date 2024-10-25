@@ -3,9 +3,13 @@ export const ProductListLocators = {
     totalItems: '.category-type-products .categoryLeft .filterCount a'
   },
 
-  productList: {
+  searchPage: {
+    section: '#searchPage',
     searchTitle: '#searchResultLabel',
+    noResults: '.noProducts > .ng-binding',
+  },
 
+  productList: {
     product: (index: number) => {
       const productIndex = index + 1;
       const productCard = `.category-type-products .categoryRight:first li:nth-child(${productIndex})`;

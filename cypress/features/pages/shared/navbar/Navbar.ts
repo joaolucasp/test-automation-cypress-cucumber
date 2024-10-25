@@ -32,7 +32,7 @@ export class Navbar {
   }
 
   private static typeSearchProduct(product: string): void {
-    cy.get(NavbarLocators.searchProduct.searchInput).type(product);
+    cy.get(NavbarLocators.searchProduct.searchInput).type(`${product}{enter}`);
   }
 
   public static clickOnProfileLink(): void {
