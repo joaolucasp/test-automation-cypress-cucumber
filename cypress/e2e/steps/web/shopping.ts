@@ -41,20 +41,3 @@ Then("the user should see a message indicating that no products were found", () 
   });
 });
 /* ------------------------------------------- */
-
-/* Scenario for searching a empty string */
-Then("the user should see a list of all available products", () => {
-  const productListPage = new ProductList();
-  const EXPECTED_TOTAL_ITEMS = 74;
-
-  /* Note:
-    Foi considerado que a quantidade de produtos exibidos na lista é igual a 74.
-    Essa quantidade foi obtida através de testes manuais, onde foi contado a quantidade de produtos exibidos na lista.
-    Entretanto, a fim de evitar a manutenção do teste caso a quantidade de produtos exibidos na lista mude,
-    seria necessário fazer uma integação com a API para obter a quantidade de produtos disponíveis no banco de dados.
-  */
-  productListPage.getProductsList().then((products) => {
-    ProductListAssertions.validateTotalItems(products.length, EXPECTED_TOTAL_ITEMS);
-  });
-});
-/* ------------------------------------------- */

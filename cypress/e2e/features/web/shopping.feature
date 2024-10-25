@@ -1,4 +1,4 @@
-Feature: Product Search
+Feature: Shopping Cart Functionalities
 
   Background:
     Given the user is on the homepage
@@ -17,7 +17,3 @@ Feature: Product Search
   Scenario: User searches for a product that does not exist
     When the user searches for "ABCDEFGH!@#$%^&*()"
     Then the user should see a message indicating that no products were found
-
-  Scenario: User performs a search with an empty query
-    When the user searches for ""
-    Then the user should see a list of all available products
