@@ -13,5 +13,7 @@ export const CartTooltipLocators = {
       productColor: `${productRow} td:nth-child(2) label:last span`,
       productPrice: `${productRow} td:nth-child(3) .price`
     };
-  }
+  },
+
+  checkoutButton: '#toolTipCart #checkOutPopUp',
 };

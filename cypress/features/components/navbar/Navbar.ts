@@ -1,6 +1,9 @@
 // Locators
 import { NavbarLocators } from '@features/components/navbar/locators/NavbarLocators';
 
+// Other componentes
+import { CartTooltip } from '@features/components/cart-tooltip/CartTooltip';
+
 export class Navbar {
   private static readonly locators = NavbarLocators;
 
@@ -41,5 +44,10 @@ export class Navbar {
 
   public static clickOnCartLink(): void {
     cy.get(Navbar.locators.cartLink).click();
+  }
+  
+  public static goToCheckoutPage(): void {
+    cy.get(Navbar.locators.cartLink).trigger('mouseover');
+    CartTooltip.clickOnCheckoutButton();
   }
 }

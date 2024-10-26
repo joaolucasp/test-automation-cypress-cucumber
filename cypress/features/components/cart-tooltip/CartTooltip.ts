@@ -23,9 +23,16 @@ export class CartTooltip {
     return CartTooltip.getTotalItems().then((totalItems) => {
       const allProductsInCart: IProduct[] = [];
 
+      // If there are no items in the cart, return an empty array
+      if (totalItems === 0) {
+        return cy.wrap([]);
+      }
+
+      // For each product in the cart, get the product information
       for (let i = 0; i < totalItems; i++) {
         const productResumePromise = CartTooltip.getProductFromCart(i);
 
+        // add the product to the list of products in the cart and wrap it for the next iteration
         productResumePromise.then((productResume) => {
           allProductsInCart.push(productResume);
           cy.wrap(allProductsInCart).as('allProductsInCart');
@@ -50,5 +57,9 @@ export class CartTooltip {
         });
       });
     });
+  }
+
+  public static clickOnCheckoutButton(): void {
+    cy.get(CartTooltip.locators.checkoutButton).click();
   }
 }

@@ -18,6 +18,6 @@ export const NavbarLocators = {
     }
   },
 
-  profileLink: 'menuUserLink',
-  cartLink: 'shoppingCartLink',
+  profileLink: '#menuUserLink',
+  cartLink: '#shoppingCartLink',
 };
