@@ -10,7 +10,6 @@ export class ObjectHelper {
     if (Object.keys(obj1).length !== Object.keys(obj2).length) return false;
 
     for (const prop in obj1) {
-      // TODO: Solução temporária pq o BOT tá esquecendo de dar .trim() nas strings
       if (typeof prop === 'string') {
         obj1[prop] = String(obj1[prop]).trim();
         obj2[prop] = String(obj2[prop]).trim();
