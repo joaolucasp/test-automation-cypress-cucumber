@@ -2,8 +2,9 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 // Page Objects
-import { Navbar } from '@features/pages/shared/navbar/Navbar';
+import { Navbar } from '@features/components/navbar/Navbar';
 import { ProductList } from '@features/pages/product-list/page-objects-model/ProductList';
+import { ProductDetails } from '@features/pages/product-details/page-objects-model/ProductDetails';
 
 // Assertions
 import { ProductListAssertions } from '@features/pages/product-list/assertions/ProductListAssertions';
@@ -41,3 +42,11 @@ Then("the user should see a message indicating that no products were found", () 
   });
 });
 /* ------------------------------------------- */
+When('the user adds {string} of the first product to the cart', (quantity: string) => {
+  const productListPage = new ProductList();
+  productListPage.viewProduct(0);
+
+  const ProductDetailsPage = new ProductDetails();
+  ProductDetailsPage.increaseProductQuantity(parseInt(quantity));
+  ProductDetailsPage.addToCart();
+});
