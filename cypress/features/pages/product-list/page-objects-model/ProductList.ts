@@ -13,6 +13,11 @@ export class ProductList {
 
   constructor() { }
 
+  public viewProduct(index: number): void {
+    const productCard = new ProductCard(index);
+    productCard.clickOnCard();
+  }
+
   public getTotalItems(): Cypress.Chainable<number> {
     return cy.get(this.locators.searchPage.section).then(($noResults) => {
       const noResultsTitle = $noResults.find(this.locators.searchPage.noResults);

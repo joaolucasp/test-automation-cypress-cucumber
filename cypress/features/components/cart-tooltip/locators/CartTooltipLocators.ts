@@ -1,6 +1,8 @@
 export const CartTooltipLocators = {
-  totalItems: '#toolTipCart table > tbody > tfoot > tr:first > td:first label',
-  totalPrice: '#toolTipCart table > tbody > tfoot > tr:last > td:last span',
+  totalItems: '#toolTipCart table > tfoot > tr:first > td:first label',
+  totalPrice: '#toolTipCart table > tfoot > tr:last > td:last span',
+
+  productRow: '#toolTipCart table > tbody > tr',
 
   product: (index: number) => {
     const productRow = `#toolTipCart table > tbody > tr:nth-child(${index + 1})`;

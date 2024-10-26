@@ -2,7 +2,7 @@
 import { AssertionTypes } from "cypress/support/commands/cyValidate";
 
 // Types
-import { IProductResume } from "@features/pages/shared/types/product/IProductResume";
+import { IProduct } from "@features/pages/shared/types/product/IProduct";
 
 export class ProductListAssertions {
   constructor() {}
@@ -21,7 +21,7 @@ export class ProductListAssertions {
     cy.expected(totalItems, AssertionTypes.EQUAL, expectedTotalItems, customSuccessMessage, customFailureMessage);
   }
 
-  public static validateIfProductNamesMatchSearchCriteria(product: IProductResume, searchTerm: string): void {
+  public static validateIfProductNamesMatchSearchCriteria(product: IProduct, searchTerm: string): void {
     const customSuccessMessage = `[Lista de Produtos] O nome do produto exibido na lista corresponde ao termo de busca: '${searchTerm}'`;
     const customFailureMessage = `[Lista de Produtos] O produto '${product.productName}' não corresponde ao termo de busca: '${searchTerm}'`;
 
@@ -32,7 +32,7 @@ export class ProductListAssertions {
     */
     const productName = product.productName.toLocaleLowerCase();
 
-    cy.expected(product.productName.toLocaleLowerCase(), AssertionTypes.CONTAINS, searchTerm, customSuccessMessage, customFailureMessage);
+    cy.expected(productName, AssertionTypes.CONTAINS, searchTerm, customSuccessMessage, customFailureMessage);
   }
 
   public static validateIfNoResultsMessageIsDisplayed(message: string): void {
