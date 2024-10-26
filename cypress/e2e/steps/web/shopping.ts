@@ -2,6 +2,7 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 // Page Objects
+import { Checkout } from '@features/pages/checkout/page-objects-model/Checkout';
 import { ProductList } from '@features/pages/product-list/page-objects-model/ProductList';
 import { ProductDetails } from '@features/pages/product-details/page-objects-model/ProductDetails';
 
@@ -10,6 +11,7 @@ import { Navbar } from '@features/components/navbar/Navbar';
 import { CartTooltip } from '@features/components/cart-tooltip/CartTooltip';
 
 // Assertions
+import { CheckoutAssertions } from '@features/pages/checkout/assertions/CheckoutAssertions';
 import { ProductListAssertions } from '@features/pages/product-list/assertions/ProductListAssertions';
 import { CartTooltipAssertions } from '@features/components/cart-tooltip/assertions/CartTooltipAssertions';
 
@@ -48,7 +50,7 @@ Then("the user should see a message indicating that no products were found", () 
 /* ------------------------------------------- */
 
 /* Scenario for adding a product to the cart */
-When('the user adds {string} of the first product to the cart', (quantity: string) => {
+When('the user adds {string} quantity of the product to the cart', (quantity: string) => {
   const productListPage = new ProductList();
   productListPage.viewProduct(0);
 
@@ -65,6 +67,25 @@ Then('the user should see {string} of {string} added to the cart', (quantity: st
     }
 
     CartTooltipAssertions.validateIfProductAddedToCart(product, allProductsInCart);
+  });
+});
+/* ------------------------------------------- */
+
+/* Scenario for validate the products added too the cart on the checkoutpage */
+When('the user navigates to the checkout page', () => {
+  Navbar.goToCheckoutPage();
+});
+
+Then('the user should see {string} quantity of {string} on checkout screen', (quantity: string, productName: string) => {
+  const checkoutPage = new Checkout();
+
+  checkoutPage.getAllProductsInCart().then((allProductsInCart) => {
+    const product = {
+      productName,
+      quantity: parseInt(quantity)
+    }
+
+    CheckoutAssertions.validateIfProductAddedToCart(product, allProductsInCart);
   });
 });
 /* ------------------------------------------- */
