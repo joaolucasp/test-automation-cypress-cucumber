@@ -6,8 +6,8 @@ export const ProductDetailsLocators = {
   quantity: '#productProperties input[name="quantity"]',
 
   quantityActions: {
-    increase: '#productProperties .smoolMargin .minus',
-    decrease: '#productProperties .smoolMargin .plus',
+    increase: '#productProperties .smoolMargin .plus',
+    decrease: '#productProperties .smoolMargin .minus',
   },
 
   addToCartButton: '#productProperties button[name="save_to_cart"]',

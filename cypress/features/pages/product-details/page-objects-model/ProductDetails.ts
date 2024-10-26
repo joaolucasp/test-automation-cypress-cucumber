@@ -10,20 +10,24 @@ export class ProductDetails {
   constructor() {}
 
   public increaseProductQuantity(quantity: number = 1): void {
-    while (quantity > 0) {
+    while (quantity > 1) {
       cy.get(this.locators.quantityActions.increase).click();
       quantity--;
     }
   }
 
   public decreaseProductQuantity(quantity: number = 1): void {
-    while (quantity > 0) {
+    while (quantity > 1) {
       this.getProductQuantity().then(currentQuantity => {
         if (currentQuantity > 1) {
           cy.get(this.locators.quantityActions.decrease).click();
         }
       });
     }
+  }
+
+  public addToCart(): void {
+    cy.get(this.locators.addToCartButton).click();
   }
 
   private getProductName(): Cypress.Chainable<string> {
