@@ -68,13 +68,3 @@ export interface IRequestDefinition {
   headers?: object;
   body?: object;
 }
-
-export type IPaginatedResponse<T> = {
-  data: T[];
-  pageMetadata: any;
-};
-
-export enum ApiOrderingTypes {
-  ASC = 'ASC',
-  DESC = 'DESC'
-}

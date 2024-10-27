@@ -1,5 +1,5 @@
 // Core
-import { AdvantageShoppingApi, IRequestDefinition, IPaginatedResponse } from '@features/services/advantage-shopping-api/AdvantageShoppingApi';
+import { AdvantageShoppingApi, IRequestDefinition } from '@features/services/advantage-shopping-api/AdvantageShoppingApi';
 
 // Account Types
 import { IApiRegisterDto } from '@features/services/advantage-shopping-api/modules/account/types/IApiRegisterDto';

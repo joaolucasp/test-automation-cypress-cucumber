@@ -29,6 +29,10 @@ export default defineConfig({
     specPattern: '**/*.feature',
   },
 
+  env: {
+    apiUrl: 'https://advantageonlineshopping.com',
+  },
+
   defaultCommandTimeout: 8000,
   requestTimeout: 8000,
   responseTimeout: 8000,
