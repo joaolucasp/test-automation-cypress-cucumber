@@ -10,7 +10,7 @@
     "baseUrl": "./",
     "paths": {
       "@badeball/cypress-cucumber-preprocessor/*": ["./node_modules/@badeball/cypress-cucumber-preprocessor/dist/subpath-entrypoints/*"],
-      "@pages/*": ["./cypress/src/pages/*"],
+      "@features/*": ["./cypress/features/*"],
       "@helpers/*": ["./cypress/helpers/*"],
     }
   },
