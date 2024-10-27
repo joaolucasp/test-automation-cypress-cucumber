@@ -1,4 +1,4 @@
-import { IApiProduct } from "./IApiProduct";
+import { IApiProduct } from '@services/advantage-shopping-api/modules/product/types/IApiProduct';
 
 export interface IApiProductCategory {
   categoryId: number;

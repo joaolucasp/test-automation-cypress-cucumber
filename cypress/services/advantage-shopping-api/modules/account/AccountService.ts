@@ -1,8 +1,8 @@
 // Core
-import { AdvantageShoppingApi, IRequestDefinition } from '@features/services/advantage-shopping-api/AdvantageShoppingApi';
+import { AdvantageShoppingApi, IRequestDefinition } from '@services/advantage-shopping-api/AdvantageShoppingApi';
 
 // Account Types
-import { IApiRegisterDto } from '@features/services/advantage-shopping-api/modules/account/types/IApiRegisterDto';
+import { IApiRegisterDto } from '@services/advantage-shopping-api/modules/account/types/IApiRegisterDto';
 
 export class AccountService extends AdvantageShoppingApi {
   public createAccount(accountDto: IApiRegisterDto): Cypress.Chainable<IApiRegisterDto> {

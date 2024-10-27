@@ -1,8 +1,8 @@
 // Core
-import { AdvantageShoppingApi, IRequestDefinition } from '@features/services/advantage-shopping-api/AdvantageShoppingApi';
+import { AdvantageShoppingApi, IRequestDefinition } from '@services/advantage-shopping-api/AdvantageShoppingApi';
 
 // Product Types
-import { IApiProductCategory } from '@features/services/advantage-shopping-api/modules/product/types/IApiProductCategory';
+import { IApiProductCategory } from '@services/advantage-shopping-api/modules/product/types/IApiProductCategory';
 
 export class ProductService extends AdvantageShoppingApi {
   public searchProducts(searchTerm: string): Cypress.Chainable<IApiProductCategory[]> {

@@ -1,5 +1,5 @@
 // Types
-import { IApiLoginDto } from './modules/account/types/IApiLoginDto';
+import { IApiLoginDto } from '@services/advantage-shopping-api/modules/account/types/IApiLoginDto';
 
 export class AdvantageShoppingApi {
   public apiUrl = Cypress.env('apiUrl');
