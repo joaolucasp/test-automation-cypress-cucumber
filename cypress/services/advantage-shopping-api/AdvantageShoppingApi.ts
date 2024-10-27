@@ -41,11 +41,16 @@ export class AdvantageShoppingApi {
     });
   }
 
-  public executeRequest<T>(requestDefinition: IRequestDefinition, loginDto?: IApiLoginDto): Cypress.Chainable<T> {
+  public executeRequest<T>(requestDefinition: IRequestDefinition, loginDto?: IApiLoginDto): Cypress.Chainable<IApiResponseData<T>> {
     // If there is no loginDto, we can execute the request without the need of an access token
     if (!loginDto) {
       return cy.request<T>(requestDefinition).then(response => {
-        return cy.wrap(response.body);
+        const responseData: IApiResponseData<T> = {
+          data: response.body,
+          statusCode: response.status
+        };
+
+        return cy.wrap(responseData);
       });
     }
 
@@ -56,7 +61,12 @@ export class AdvantageShoppingApi {
       };
 
       return cy.request<T>(requestDefinition).then(response => {
-        return cy.wrap(response.body);
+        const responseData: IApiResponseData<T> = {
+          data: response.body,
+          statusCode: response.status
+        };
+
+        return cy.wrap(responseData);
       });
     });
   }
@@ -67,4 +77,9 @@ export interface IRequestDefinition {
   url: string;
   headers?: object;
   body?: object;
+}
+
+export type IApiResponseData<T> = {
+  data: T;
+  statusCode: number;    
 }
