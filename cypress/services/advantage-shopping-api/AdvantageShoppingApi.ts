@@ -1,78 +1,41 @@
 // Types
 import { IApiLoginDto } from '@services/advantage-shopping-api/modules/account/types/IApiLoginDto';
-import { IApiLoginResponse } from './modules/account/types/IApiLoginResponse';
+import { IApiSession } from '@services/advantage-shopping-api/modules/account/types/IApiSession';
+import { IApiLoginResponse } from '@services/advantage-shopping-api/modules/account/types/IApiLoginResponse';
 
 export class AdvantageShoppingApi {
   public apiUrl = Cypress.env('apiUrl');
-  private accessToken: Cypress.Chainable<string> | null = null;
+  private session: Cypress.Chainable<IApiSession> | null = null;
 
   constructor() {}
 
-  public login(loginDto: IApiLoginDto): Cypress.Chainable<string> {
-    const requestDefinition = {
-      method: 'POST' as 'POST',
+  public login(loginDto: IApiLoginDto): Cypress.Chainable<IApiSession> {
+    const requestDefinition: IRequestDefinition = {
+      method: 'POST',
       url: `${this.apiUrl}/accountservice/accountrest/api/v1/login`,
       body: {
         ...loginDto,
       }
     };
 
-    this.accessToken = this.executeRequest<IApiLoginResponse>(requestDefinition).then((response: IApiResponseData<IApiLoginResponse>) => {
-      return response.data.statusMessage.token as string;
+    this.session = this.executeRequest<IApiLoginResponse>(requestDefinition).then((response: IApiResponseData<IApiLoginResponse>) => {
+      return {
+        accessToken: response.data.statusMessage.token,
+        userId: response.data.statusMessage.userId,
+      }
     });
-    
-    /*cy.request(requestDefinition).then((response: IApiLoginResponse) => {
-      return response.body.AuthenticationResult.AccessToken as string;
-    });*/
 
-    return this.accessToken;
+    return this.session;
   }
 
-  /* 
-      NOTE: Esse método é responsável por obter o accessToken. 
-      Foi necessário utilizar uma mistura de cypress commands e promises para garantir que o token seja obtido antes de realizar a requisição.
-      Isto ocorre porque o método login() é assíncrono e não podemos garantir que o token será obtido antes da requisição ser realizada.
-      A consequência disso é que se não fizéssemos dessa forma, a N-ésima requisição seria feita utilizando um token inválido.
-    */
-  public getAccessToken(loginDto: IApiLoginDto): Cypress.Chainable<string> {
-    if (!this.accessToken) {
-      this.login(loginDto).then(token => {
-        cy.wrap(token).as('apiAccessToken');
-      });
-    }
-
-    return cy.get('@apiAccessToken').then(storedToken => {
-      return storedToken as unknown as string;
-    });
-  }
-
-  public executeRequest<T>(requestDefinition: IRequestDefinition, loginDto?: IApiLoginDto): Cypress.Chainable<IApiResponseData<T>> {
-    // If there is no loginDto, we can execute the request without the need of an access token
-    if (!loginDto) {
-      return cy.request<T>(requestDefinition).then(response => {
-        const responseData: IApiResponseData<T> = {
-          data: response.body,
-          statusCode: response.status
-        };
-
-        return cy.wrap(responseData);
-      });
-    }
-
-    return this.getAccessToken(loginDto).then(acessToken => {
-      requestDefinition.headers = {
-        ...requestDefinition.headers,
-        Authorization: `Bearer ${acessToken}`
+  public executeRequest<T>(requestDefinition: IRequestDefinition): Cypress.Chainable<IApiResponseData<T>> {
+    return cy.request<T>(requestDefinition).then(response => {
+      const responseData: IApiResponseData<T> = {
+        data: response.body,
+        statusCode: response.status
       };
 
-      return cy.request<T>(requestDefinition).then(response => {
-        const responseData: IApiResponseData<T> = {
-          data: response.body,
-          statusCode: response.status
-        };
-
-        return cy.wrap(responseData);
-      });
+      return cy.wrap(responseData);
     });
   }
 }

@@ -3,6 +3,7 @@ import { AssertionTypes } from "cypress/support/commands/cyValidate";
 
 // Types
 import { IApiProduct } from "@services/advantage-shopping-api/modules/product/types/IApiProduct";
+import { IApiProductDetail } from "@services/advantage-shopping-api/modules/product/types/IApiProductDetail";
 
 export class ProductManagerAssertions {
   constructor() { }
@@ -26,5 +27,14 @@ export class ProductManagerAssertions {
     const customFailureMessage = `[Service - Busca por produtos] Há produtos exibidos na lista, enquanto era esperado que a lista estivesse vazia`;
 
     cy.expected(listOfProducts, AssertionTypes.EQUAL, null, customSuccessMessage, customFailureMessage);
+  }
+
+  public static validateIfProductImageWasUpdated(productDetail: IApiProductDetail, source: string, color: string): void {
+    const customSuccessMessage = `[Service - Atualização de imagem] A imagem do produto foi atualizada com sucesso`;
+    const customFailureMessage = `[Service - Atualização de imagem] A imagem do produto não foi atualizada`;
+
+    const updatedImage = productDetail.images.find(image => image.includes(`${color}##custom_image_${source}`));
+
+    cy.expected(updatedImage, AssertionTypes.NOT_EQUAL, null, customSuccessMessage, customFailureMessage);
   }
 };

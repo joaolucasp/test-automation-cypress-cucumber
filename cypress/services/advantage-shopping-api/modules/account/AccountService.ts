@@ -3,6 +3,7 @@ import { IApiStatusMessage } from '@services/advantage-shopping-api/types/IApiSt
 import { AdvantageShoppingApi, IApiResponseData, IRequestDefinition } from '@services/advantage-shopping-api/AdvantageShoppingApi';
 
 // Account Types
+import { IApiSession } from '@services/advantage-shopping-api/modules/account/types/IApiSession';
 import { IApiLoginDto } from '@services/advantage-shopping-api/modules/account/types/IApiLoginDto';
 import { IApiRegisterDto } from '@services/advantage-shopping-api/modules/account/types/IApiRegisterDto';
 
@@ -19,7 +20,7 @@ export class AccountService extends AdvantageShoppingApi {
     return this.executeRequest<IApiStatusMessage>(requestDefinition);
   }
 
-  public loginAccount(loginDto: IApiLoginDto): Cypress.Chainable<string> {
+  public loginAccount(loginDto: IApiLoginDto): Cypress.Chainable<IApiSession> {
     return this.login(loginDto);
   }
 };
