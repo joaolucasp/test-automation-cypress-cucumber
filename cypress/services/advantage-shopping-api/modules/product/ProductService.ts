@@ -3,6 +3,7 @@ import { AdvantageShoppingApi, IRequestDefinition, IApiResponseData } from '@ser
 
 // Product Types
 import { IApiProductCategory } from '@services/advantage-shopping-api/modules/product/types/IApiProductCategory';
+import { IApiProductUpdated } from '@services/advantage-shopping-api/modules/product/types/IApiProductUpdated';
 
 export class ProductService extends AdvantageShoppingApi {
   public searchProducts(searchTerm: string): Cypress.Chainable<IApiResponseData<IApiProductCategory[] | null>> {
@@ -24,5 +25,26 @@ export class ProductService extends AdvantageShoppingApi {
       }
       return responseData as unknown as IApiResponseData<IApiProductCategory[]>;
     });
+  }
+
+  public updateProductImage(productId: string, source: string, color: string, accessToken: string): Cypress.Chainable<IApiResponseData<IApiProductUpdated>> {
+    const formData = new FormData();
+
+    cy.fixture('images/example.jpg', 'binary').then((file) => {
+      const blob = Cypress.Blob.binaryStringToBlob(file, 'image/jpeg'); // Converte o arquivo para Blob
+      formData.append('file', blob, 'image.jpg'); // Adiciona o arquivo ao FormData
+    });
+        
+    const requestDefinition: IRequestDefinition = {
+      method: 'POST',
+      url: `${this.apiUrl}/catalog/api/v1/product/image/${productId}/${source}/${color}?product_id=${productId}`,
+      body: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+
+    return this.executeRequest<IApiProductUpdated>(requestDefinition);
   }
 };
