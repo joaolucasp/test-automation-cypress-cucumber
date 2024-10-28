@@ -1,7 +1,9 @@
 export interface IApiStatusMessage {
-  reason: string;
-  sessionId: string;
-  success: boolean;
-  token: string;
-  userId: string;
+  response: {
+    reason: string;
+    sessionId: string;
+    success: boolean;
+    token: string;
+    userId: string;
+  }
 }

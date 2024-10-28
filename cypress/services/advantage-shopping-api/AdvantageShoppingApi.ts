@@ -1,5 +1,6 @@
 // Types
 import { IApiLoginDto } from '@services/advantage-shopping-api/modules/account/types/IApiLoginDto';
+import { IApiLoginResponse } from './modules/account/types/IApiLoginResponse';
 
 export class AdvantageShoppingApi {
   public apiUrl = Cypress.env('apiUrl');
@@ -9,16 +10,20 @@ export class AdvantageShoppingApi {
 
   public login(loginDto: IApiLoginDto): Cypress.Chainable<string> {
     const requestDefinition = {
-      method: 'POST',
-      url: `${this.apiUrl}/accountrest/api/v1/login`,
+      method: 'POST' as 'POST',
+      url: `${this.apiUrl}/accountservice/accountrest/api/v1/login`,
       body: {
         ...loginDto,
       }
     };
 
-    this.accessToken = cy.request(requestDefinition).then(response => {
-      return response.body.AuthenticationResult.AccessToken as string;
+    this.accessToken = this.executeRequest<IApiLoginResponse>(requestDefinition).then((response: IApiResponseData<IApiLoginResponse>) => {
+      return response.data.statusMessage.token as string;
     });
+    
+    /*cy.request(requestDefinition).then((response: IApiLoginResponse) => {
+      return response.body.AuthenticationResult.AccessToken as string;
+    });*/
 
     return this.accessToken;
   }
