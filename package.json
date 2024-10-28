@@ -7,7 +7,7 @@
     "cypress:open": "cypress open",
     "tag:smoke": "cypress run --env tags='@smoke'",
 
-    "test:api:search-product": "npx cypress run --env TAGS='@api-search-product'",
+    "test:api:search-product": "npx cypress run --spec 'cypress/e2e/features/api/search-product.feature'",
     "test:api:product-update": "cypress run --spec 'cypress/e2e/features/api/product-update.feature'",
 
     "test:web:add-product-to-cart": "cypress run --spec 'cypress/e2e/features/web/add-product-to-cart.feature'",
