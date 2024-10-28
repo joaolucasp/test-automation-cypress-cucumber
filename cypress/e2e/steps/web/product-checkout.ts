@@ -18,7 +18,7 @@ When('the user navigates to the checkout page', () => {
 Then('the user should see {string} quantity of {string} on checkout screen', (quantity: string, productName: string) => {
   const checkoutPage = new Checkout();  
 
-  checkoutPage.getAllProductsInCart().then(allProductsInCart => {
+  checkoutPage.getAllProducts().then(allProductsInCart => {
     const product = {
       productName,
       quantity: parseInt(quantity)
