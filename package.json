@@ -6,6 +6,18 @@
   "scripts": {
     "cypress:open": "cypress open",
     "tag:smoke": "cypress run --env tags='@smoke'",
+
+    "test:api:search-product": "npx cypress run --env TAGS='@api-search-product'",
+    "test:api:product-update": "cypress run --spec 'cypress/e2e/features/api/product-update.feature'",
+
+    "test:web:add-product-to-cart": "cypress run --spec 'cypress/e2e/features/web/add-product-to-cart.feature'",
+    "test:web:product-checkout": "cypress run --spec 'cypress/e2e/features/web/product-checkout.feature'",
+    "test:web:search-product": "cypress run --spec 'cypress/e2e/features/web/search-product.feature'",
+
+    "test:all:api": "cypress run --spec 'cypress/e2e/features/api/*.feature'",
+    "test:all:web": "cypress run --spec 'cypress/e2e/features/web/*.feature'",
+    "test:all": "cypress run --spec 'cypress/e2e/features/**/*.feature'",
+
     "lint:eslint": "eslint .",
     "lint": "npm run lint:eslint; npm run lint:tsc",
     "lint:fix": "npm run lint:eslint -- --fix",

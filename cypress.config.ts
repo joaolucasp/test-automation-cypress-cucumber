@@ -26,7 +26,7 @@ export default defineConfig({
 
     screenshotOnRunFailure: true,
     setupNodeEvents,
-    specPattern: '**/*.feature',
+    specPattern: "cypress/e2e/features/**/*.feature",
   },
 
   env: {
